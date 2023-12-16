@@ -1,8 +1,7 @@
-// In App.js in a new project
-
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StyleSheet } from "react-native";
 
 import { HomeScreen } from "./src/screen/HomeScreen";
 import { DetailsScreen } from "./src/screen/DetailsScreen";
