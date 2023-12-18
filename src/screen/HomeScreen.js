@@ -7,7 +7,7 @@ export function HomeScreen({ navigation }) {
   const [masterDataSource, setMasterDataSource] = useState([]);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch("https://raw.githubusercontent.com/jcommaret/data/master/data.json")
       .then((response) => response.json())
       .then((responseJson) => {
         setFilteredDataSource(responseJson);
@@ -44,9 +44,12 @@ export function HomeScreen({ navigation }) {
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
-      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.id}
-        {"."}
+      <Text
+        style={styles.itemStyle}
+        onPress={() => {
+          navigation.navigate("Details", item.id);
+        }}
+      >
         {item.title.toUpperCase()}
       </Text>
     );
@@ -80,7 +83,7 @@ export function HomeScreen({ navigation }) {
         placeholder="Search Here"
       />
       <FlatList
-        data={filteredDataSource}
+        data={filteredDataSource.sort((a, b) => a.title.localeCompare(b.title))}
         keyExtractor={(item, index) => index.toString()}
         ItemSeparatorComponent={ItemSeparatorView}
         renderItem={ItemView}
