@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, FlatList, TextInput } from "react-native";
 
+import { getWords } from "../service/service";
+
 export function HomeScreen({ navigation }) {
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
 
+  const [estonian, setEstonian] = useState([]);
+
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/jcommaret/data/master/data.json")
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setFilteredDataSource(responseJson);
-        setMasterDataSource(responseJson);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    console.log(getWords()).then((wordsInfos) => setEstonian(wordsInfos));
+    console.log(wordsInfos);
   }, []);
 
   const searchFilterFunction = (text) => {
